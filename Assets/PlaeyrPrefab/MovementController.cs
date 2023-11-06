@@ -50,9 +50,4 @@ public class MovementController : MonoBehaviour
     {
         _onGround = Physics.Raycast(footPoint.position, Vector3.down, 1f);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(footPoint.position,footPoint.position + Vector3.down*1f);
-    }
 }
