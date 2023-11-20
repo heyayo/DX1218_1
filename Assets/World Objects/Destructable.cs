@@ -10,6 +10,9 @@ public class Destructable : MonoBehaviour
 	{
 		health -= dmg;
 		if (health <= 0)
+		{
+			Destroy(gameObject);
 			onDestroyed.Invoke();
+		}
 	}
 }

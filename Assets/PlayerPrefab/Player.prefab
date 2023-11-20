@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 5482853858624081634}
   - component: {fileID: 601126466454334875}
   - component: {fileID: 5801148738172585402}
+  - component: {fileID: 4655305061199593461}
+  - component: {fileID: 4599025861838078158}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -206,8 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76336675cbe85744a535ec31ced9bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 0}
+  inventoryIndex: 0
+  inventory: []
   range: 2.5
+  throwForce: 5
   gunMountPoint: {fileID: 1565294296990241237}
 --- !u!114 &5801148738172585402
 MonoBehaviour:
@@ -223,7 +227,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footPoint: {fileID: 2920763544871732222}
   moveSpeed: 10
-  jumpStrength: 30
+  jumpStrength: 8
+--- !u!114 &4655305061199593461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963436511993750596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5811651ef57d93f14ba169bb1caad174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4599025861838078158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963436511993750596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a80ff3cb96389cb93339b3c2624ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5005758586043574837
 GameObject:
   m_ObjectHideFlags: 0

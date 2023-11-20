@@ -4,6 +4,16 @@ using Random = UnityEngine.Random;
 
 public class PlayerEffectsManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class RecoilData
+    {
+        public float vertical;
+        public float horizontal;
+        public float kickTime;
+        public float waitTime;
+        public float recoveryTime;
+    }
+    
     private CameraController _camCon;
     private MovementController _movCon;
 
@@ -14,14 +24,15 @@ public class PlayerEffectsManager : MonoBehaviour
         _camCon = GetComponent<CameraController>();
         _movCon = GetComponent<MovementController>();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            StartCoroutine(ShakeCamera(2, 1));
-        if (Input.GetKeyDown(KeyCode.F))
-            StartCoroutine(SpikeRecoil(25, 2));
-    }
+    
+    // private void Update()
+    // {
+    //     // DEBUG INPUTS
+    //     if (Input.GetKeyDown(KeyCode.Q))
+    //         StartCoroutine(ShakeCamera(2, 1));
+    //     if (Input.GetKeyDown(KeyCode.F))
+    //         StartCoroutine(SpikeRecoil(25, 2));
+    // }
     
     public IEnumerator ShakeCamera(float shakeTime, float shakeIntensity)
     {
@@ -46,25 +57,31 @@ public class PlayerEffectsManager : MonoBehaviour
         _alreadyShaking = false;
     }
 
-    public IEnumerator SpikeRecoil(float vertical, float horizontal)
+    public IEnumerator SpikeRecoil(RecoilData r)
     {
         CameraOffset offset = new CameraOffset();
         _camCon.offsets.Add(offset);
 
+        // Kick up Camera as Recoil
         float t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime * 10;
-            offset.pitch = t * -vertical;
-            offset.yaw = t * horizontal;
+            t += Time.deltaTime / r.kickTime;
+            offset.pitch = t * -r.vertical;
+            offset.yaw = t * r.horizontal;
             yield return null;
         }
 
+        // Wait before recovering from Recoil
+        yield return new WaitForSeconds(r.waitTime);
+
+        // TODO MAYBE | Improve such that recovery accounts for any changes in Camera Look while recovering or waiting
+        // Recoil Recovery back to original position
         while (t > 0)
         {
-            t -= Time.deltaTime * 20;
-            offset.pitch = t * -vertical;
-            offset.yaw = t * horizontal;
+            t -= Time.deltaTime / r.recoveryTime;
+            offset.pitch = t * -r.vertical;
+            offset.yaw = t * r.horizontal;
             yield return null;
         }
         

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class Pickupable : MonoBehaviour
 {
 	private Rigidbody _rigidbody;
 	private Collider _collider;
@@ -11,7 +11,7 @@ public class WeaponPickup : MonoBehaviour
 		_collider = GetComponent<Collider>();
 	}
 	
-	public void Pickup(Transform t)
+	public void Attach(Transform t)
 	{
 		transform.parent = t;
 		transform.localPosition = Vector3.zero;
@@ -20,8 +20,9 @@ public class WeaponPickup : MonoBehaviour
 		_rigidbody.isKinematic = true;
 	}
 
-	public void Drop()
+	public void Detach()
 	{
+		transform.parent = null;
 		_collider.enabled = true;
 		_rigidbody.isKinematic = false;
 	}
