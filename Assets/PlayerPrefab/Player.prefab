@@ -103,12 +103,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3732326625066965995}
   - component: {fileID: 6359036990967149684}
-  - component: {fileID: 6272617148049135634}
+  - component: {fileID: 4798768893679359143}
   - component: {fileID: 5482853858624081634}
-  - component: {fileID: 601126466454334875}
   - component: {fileID: 5801148738172585402}
   - component: {fileID: 4655305061199593461}
-  - component: {fileID: 4599025861838078158}
+  - component: {fileID: 539838339541674562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -160,8 +159,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &6272617148049135634
-CapsuleCollider:
+--- !u!65 &4798768893679359143
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -178,11 +177,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: -0.7, z: 0}
 --- !u!114 &5482853858624081634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,23 +193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 5
---- !u!114 &601126466454334875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2963436511993750596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76336675cbe85744a535ec31ced9bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryIndex: 0
-  inventory: []
-  range: 2.5
-  throwForce: 5
-  gunMountPoint: {fileID: 1565294296990241237}
 --- !u!114 &5801148738172585402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +207,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footPoint: {fileID: 2920763544871732222}
   moveSpeed: 10
-  jumpStrength: 8
+  sprintSpeed: 15
+  jumpStrength: 2
+  jumpTime: 0.4
+  crouchSpeed: 50
+  headBobRange: 0.1
+  headBobRate: 8
 --- !u!114 &4655305061199593461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5811651ef57d93f14ba169bb1caad174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4599025861838078158
+--- !u!114 &539838339541674562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,9 +234,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2963436511993750596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a80ff3cb96389cb93339b3c2624ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: ef565806367f9ee43ac6bceb57100638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdPoint: {fileID: 1565294296990241237}
+  inventory:
+    items: []
+  range: 3
+  throwForce: 10
 --- !u!1 &5005758586043574837
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 5005758586043574837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -308,7 +298,7 @@ Transform:
   m_GameObject: {fileID: 7836309316932592640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.082, y: -0.06399989, z: 0.16}
+  m_LocalPosition: {x: 0.32, y: -0.21, z: 0.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

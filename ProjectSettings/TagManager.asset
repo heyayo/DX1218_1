@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weapon
-  - Destructable
+  - Reactable
+  - Mountable
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 
 public class PlayerEffectsManager : MonoBehaviour
 {
+    public static PlayerEffectsManager Instance;
+    
     [System.Serializable]
     public class RecoilData
     {
@@ -23,6 +25,7 @@ public class PlayerEffectsManager : MonoBehaviour
     {
         _camCon = GetComponent<CameraController>();
         _movCon = GetComponent<MovementController>();
+        Instance = this;
     }
     
     // private void Update()

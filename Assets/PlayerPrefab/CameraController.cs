@@ -5,18 +5,37 @@ public class CameraOffset
 {
     public float pitch;
     public float yaw;
+    
+    public CameraOffset()
+    {}
+    
+    public CameraOffset(float p, float y)
+    {
+        pitch = p;
+        yaw = y;
+    }
+
+    public CameraOffset clone()
+    {
+        return new CameraOffset(pitch, yaw);
+    }
 }
 
 public class CameraController : MonoBehaviour
 {
-    private Camera _cam;
+    protected Camera _cam;
     
-    private float _pitch;
-    private float _yaw;
+    protected float _pitch;
+    protected float _yaw;
     public CameraOffset mouseDirection = new CameraOffset();
     public List<CameraOffset> offsets = new List<CameraOffset>();
 
-    [SerializeField] private float sensitivity = 1f;
+    [SerializeField] protected float sensitivity = 1f;
+
+    public CameraOffset originalOffset
+    {
+        get { return new CameraOffset(_pitch, _yaw); }
+    }
 
     private void Awake()
     {
@@ -26,15 +45,40 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         // Fetch Mouse Input
-        float h = Input.GetAxis("Mouse X") * sensitivity;
-        float v = Input.GetAxis("Mouse Y") * sensitivity;
-        _yaw += h;
-        _pitch -= v;
-        // Sync MouseDirection Value
-        mouseDirection.pitch = -v;
-        mouseDirection.yaw = h;
+        FetchInput();
+        
+        // Clamp Pitch to Prevent Neck Damage
+        _pitch = Mathf.Clamp(_pitch, -90, 90);
 
         // Turn Mouse Input into Camera Rotation
+        CameraOffset tally = TallyOffsets();
+
+        _cam.transform.localRotation = Quaternion.Euler(tally.pitch,0,0);
+        transform.localRotation = Quaternion.Euler(0,tally.yaw,0);
+
+        // Debug Mouse Window Lock Toggle
+        DEBUG_ToggleMouseLock();
+    }
+
+    protected CameraOffset GetMouseMovement()
+    {
+        float h = Input.GetAxis("Mouse X") * sensitivity;
+        float v = Input.GetAxis("Mouse Y") * sensitivity;
+        return new CameraOffset(v, h);
+    }
+
+    protected void FetchInput()
+    {
+        CameraOffset mouse = GetMouseMovement();
+        _yaw += mouse.yaw;
+        _pitch -= mouse.pitch;
+        // Sync MouseDirection Value
+        mouseDirection.pitch = -mouse.pitch;
+        mouseDirection.yaw = mouse.yaw;
+    }
+
+    protected CameraOffset TallyOffsets()
+    {
         float finalPitch = _pitch;
         float finalYaw = _yaw;
         for (int i = 0; i < offsets.Count; ++i) // Tally all offsets
@@ -42,10 +86,12 @@ public class CameraController : MonoBehaviour
             finalPitch += offsets[i].pitch;
             finalYaw += offsets[i].yaw;
         }
-        _cam.transform.localRotation = Quaternion.Euler(finalPitch,0,0);
-        transform.localRotation = Quaternion.Euler(0,finalYaw,0);
 
-        // Debug Mouse Window Lock Toggle
+        return new CameraOffset(finalPitch, finalYaw);
+    }
+
+    protected void DEBUG_ToggleMouseLock()
+    {
         if (Input.GetKeyDown(KeyCode.E))
         {
             switch (Cursor.lockState)

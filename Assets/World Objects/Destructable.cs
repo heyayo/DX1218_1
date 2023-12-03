@@ -1,17 +1,24 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Destructable : MonoBehaviour
+public class Destructable : Reaction
 {
+	[SerializeField] private GameObject rootObject;
 	[SerializeField] private float health;
 	[SerializeField] private UnityEvent onDestroyed;
 
-	public void TakeDamage(float dmg)
+	private void Awake()
 	{
-		health -= dmg;
+		if (!rootObject)
+			rootObject = gameObject;
+	}
+	
+	public override void Interact(float damage, float force)
+	{
+		health -= damage;
 		if (health <= 0)
 		{
-			Destroy(gameObject);
+			Destroy(rootObject);
 			onDestroyed.Invoke();
 		}
 	}
