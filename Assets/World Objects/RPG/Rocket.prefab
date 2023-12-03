@@ -98,12 +98,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dafb9b10b3e27c40bd7b91a4b00be03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exhaust: {fileID: 9120579704812942363}
   direction: {x: 0, y: 0, z: 0}
-  lifeTime: 5
+  released: 0
+  lifeTime: 8
+  _exhaust: {fileID: 9120579704812942363}
   speed: 10
   fuel: 5
-  released: 0
+  explosion: {fileID: 198917022394846920, guid: a35f676950373e144881d559cb03a70c, type: 3}
+  explosionRadius: 2
+  damage: 50
 --- !u!1 &5268748082299648646
 GameObject:
   m_ObjectHideFlags: 0

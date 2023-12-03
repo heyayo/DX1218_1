@@ -78,7 +78,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -102,10 +102,14 @@ MonoBehaviour:
   released: 0
   lifeTime: 60
   target: {fileID: 0}
+  initialForce: 5
   climbFuel: 4
-  climbSpeed: 10
+  climbSpeed: 25
   chaseSpeed: 25
-  released: 0
+  chaseRotSpeed: 50
+  explosion: {fileID: 198917022394846920, guid: a35f676950373e144881d559cb03a70c, type: 3}
+  explosionRadius: 2
+  damage: 50
 --- !u!1001 &2401962348486784083
 PrefabInstance:
   m_ObjectHideFlags: 0

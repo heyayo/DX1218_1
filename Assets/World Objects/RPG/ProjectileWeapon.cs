@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 public abstract class ProjectileWeapon : Weapon
 {
+    [SerializeField] protected PlayerEffectsManager.RecoilData recoil;
     [SerializeField] protected ParticleSystem rocketExhaust;
-    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected Transform exhaustPoint;
 
     protected ObjectPool<ParticleSystem> _exhaustPool;
     protected Transform _camT;

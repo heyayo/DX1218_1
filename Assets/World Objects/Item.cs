@@ -12,7 +12,11 @@ public class Item : MonoBehaviour
     private Transform _t;
 
     public UnityEvent onUse;
+    public UnityEvent onUseRelease;
     public UnityEvent onAltUse;
+    public UnityEvent onAltRelease;
+    public UnityEvent onDetach;
+    public UnityEvent onReload;
 
     private void Awake()
     {
@@ -22,8 +26,16 @@ public class Item : MonoBehaviour
         _t = transform;
         if (onUse == null) // null Check to prevent overwriting Unity Inspector
             onUse = new UnityEvent();
+        if (onUseRelease == null)
+            onUseRelease = new UnityEvent();
         if (onAltUse == null)
             onAltUse = new UnityEvent();
+        if (onAltRelease == null)
+            onAltRelease = new UnityEvent();
+        if (onDetach == null)
+            onDetach = new UnityEvent();
+        if (onReload == null)
+            onReload = new UnityEvent();
     }
     
     public void Attach(Transform t)
@@ -51,6 +63,7 @@ public class Item : MonoBehaviour
             col.enabled = true;
         foreach (var col in _childColliders)
             col.enabled = true;
+        onDetach.Invoke();
     }
 
     public virtual void Use()

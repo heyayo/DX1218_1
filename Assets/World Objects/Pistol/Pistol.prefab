@@ -33,7 +33,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 8329911094667432783}
   - {fileID: 842749491695957749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -98,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reusable: 0
-  reusableAlt: 0
+  reusableAlt: 1
   rigidbody: {fileID: 0}
   onUse:
     m_PersistentCalls:
@@ -115,12 +114,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onUseRelease:
+    m_PersistentCalls:
+      m_Calls: []
   onAltUse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8939693578458558012}
         m_TargetAssemblyTypeName: PistolScript, Assembly-CSharp
         m_MethodName: ADS
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAltRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  onDetach:
+    m_PersistentCalls:
+      m_Calls: []
+  onReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8939693578458558012}
+        m_TargetAssemblyTypeName: Weapon, Assembly-CSharp
+        m_MethodName: Reload
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -143,8 +166,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 250
+  ammo: {fileID: 11400000, guid: 84d3f72dee417754f8180d54ffc8924e, type: 2}
+  clip: 7
+  clipMax: 7
+  reloadTime: 1.25
   muzzleFlash: {fileID: 198175801688348628, guid: c6b54a48ab1d8df4d83ee55cc7e184d1, type: 3}
+  impactEffect: {fileID: 5831696098870356908, guid: 1e70f601d2165454292f475d729c70c4, type: 3}
   muzzlePoint: {fileID: 8329911094667432783}
+  mesh: {fileID: 842749491695957749}
   recoil:
     vertical: 10
     horizontal: 2
@@ -152,6 +181,9 @@ MonoBehaviour:
     waitTime: 0.4
     recoveryTime: 0.3
   damage: 1
+  adsSpeed: 5
+  ADSVector: {x: 0, y: 0.06, z: -0.16}
+  nonADSVector: {x: 0, y: 0, z: 0}
 --- !u!1 &7235673414345597979
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,12 +208,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7235673414345597979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.1058, y: 0.0314, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.0010580005, y: 0.00031399966, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8232296500419913604}
+  m_Father: {fileID: 842749491695957749}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &8742134685208477798
 GameObject:
@@ -213,7 +245,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8329911094667432783}
   m_Father: {fileID: 8232296500419913604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2873419416474014320

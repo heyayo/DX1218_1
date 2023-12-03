@@ -7,16 +7,22 @@ public class PistolScript : Weapon
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private ParticleSystem impactEffect;
     [SerializeField] private Transform muzzlePoint;
+    [SerializeField] private Transform mesh;
     [SerializeField] private PlayerEffectsManager.RecoilData recoil;
     [SerializeField] private float damage;
+    
+    [Header("ADS Values")]
+    [SerializeField] private float adsSpeed;
+    [SerializeField] private Vector3 ADSVector;
+    [SerializeField] private Vector3 nonADSVector;
+    [SerializeField] private float adsFOV;
 
     private Camera _cam;
     private Transform _camT;
     private Transform _t;
 
-    private Vector3 _adsVector = new Vector3(0, 0.1f, -0.32f);
     private float _adsProgress;
-    private bool _ads = false;
+    private float _nonADSFov;
 
     private ObjectPool<ParticleSystem> _muzzlePool;
     private ObjectPool<ParticleSystem> _impactPool;
@@ -24,17 +30,19 @@ public class PistolScript : Weapon
     private void Awake()
     {
         base.Awake();
-        
+
         _cam = Camera.main;
         _camT = _cam.transform;
         _t = transform;
+        nonADSVector = mesh.localPosition;
+        _nonADSFov = _cam.fieldOfView;
 
         if (recoil == null)
             recoil = new PlayerEffectsManager.RecoilData();
 
         _muzzlePool = new ObjectPool<ParticleSystem>
             ( () =>
-            { return Instantiate(muzzleFlash,muzzlePoint.position,muzzlePoint.rotation,transform); },
+            { return Instantiate(muzzleFlash,muzzlePoint.position,muzzlePoint.rotation,muzzlePoint); },
             particle =>
             { particle.gameObject.SetActive(true); },
             particle =>
@@ -70,30 +78,44 @@ public class PistolScript : Weapon
         // Handle Hit
         if (hit)
         {
+            Debug.Log("Hit Something");
+            var impact = _impactPool.Get();
+            Transform impactT = impact.transform;
+            impactT.position = info.point;
+            impactT.LookAt(info.normal);
+            StartCoroutine(HideDecal(impact));
             if (info.collider.CompareTag("Reactable"))
             {
-                Debug.Log("Hit something Reactable");
                 var comp = info.collider.GetComponent<Reaction>();
                 comp.onInteract.Invoke();
                 comp.Interact(damage,0);
-                var impact = _muzzlePool.Get();
-                Transform impactT = impact.transform;
-                impactT.position = info.point;
-                impactT.LookAt(info.normal);
             }
         }
     }
 
     public void ADS()
     {
-        _ads = !_ads;
-        
+        _adsProgress += adsSpeed * 2 * Time.deltaTime;
     }
 
+    private void Update()
+    {
+        _adsProgress -= adsSpeed * Time.deltaTime;
+        _adsProgress = Mathf.Clamp(_adsProgress, 0, 1);
+        mesh.localPosition = Vector3.Lerp(nonADSVector, ADSVector, _adsProgress);
+        _cam.fieldOfView = Mathf.Lerp(_nonADSFov, adsFOV, _adsProgress);
+    }
+    
     private IEnumerator HideFlash(ParticleSystem flash)
     {
         yield return new WaitForSeconds(2);
         flash.Stop();
         _muzzlePool.Release(flash);
+    }
+    private IEnumerator HideDecal(ParticleSystem decal)
+    {
+        yield return new WaitForSeconds(2);
+        decal.Stop();
+        _impactPool.Release(decal);
     }
 }

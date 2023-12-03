@@ -118,6 +118,24 @@ MonoBehaviour:
   onAltUse:
     m_PersistentCalls:
       m_Calls: []
+  onDetach:
+    m_PersistentCalls:
+      m_Calls: []
+  onReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6249915726542881379}
+        m_TargetAssemblyTypeName: Weapon, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6249915726542881379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +149,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 100
+  ammo: {fileID: 11400000, guid: 0d1d7fa1fa20c494385b6ec72ed7918f, type: 2}
+  clip: 1
+  clipMax: 1
+  reloadTime: 5
+  recoil:
+    vertical: 35
+    horizontal: 12
+    kickTime: 0.05
+    waitTime: 0.2
+    recoveryTime: 0.3
   rocketExhaust: {fileID: 198637950067575458, guid: c4afff62e1194bb4582df3bbac697465, type: 3}
-  firePoint: {fileID: 4244675196544479305}
+  exhaustPoint: {fileID: 4244675196544479305}
   projectile: {fileID: 4890817480965857201, guid: 3605a850541041f43990c83c0a6c33bb, type: 3}
 --- !u!1 &3523539653486290181
 GameObject:

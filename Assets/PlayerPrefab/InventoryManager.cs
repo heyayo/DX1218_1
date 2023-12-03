@@ -117,6 +117,7 @@ public class InventoryManager : MonoBehaviour
         DropItem();
         UseItem();
         SwitchItem();
+        ReloadItem();
     }
 
     private void SwitchItem()
@@ -141,6 +142,13 @@ public class InventoryManager : MonoBehaviour
                 item.Use();
                 item.onUse.Invoke();
             }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            var item = inventory.currentlyHolding();
+            if (item != null)
+                item.onUseRelease.Invoke();
         }
 
         if (_altFireType(1))
@@ -201,12 +209,18 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void ReloadItem()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            inventory.currentlyHolding().onReload.Invoke();
+    }
+
     private Item ClimbHierarchy(Transform start)
     {
         if (start.parent == null) return null;
         Item item = start.parent.GetComponent<Item>();
         if (item == null)
-            return ClimbHierarchy(item.transform);
+            return ClimbHierarchy(start.parent);
         return item;
     }
 
@@ -221,7 +235,15 @@ public class InventoryManager : MonoBehaviour
         {
             inventory.currentlyHolding().gameObject.SetActive(true);
             _fireType = inventory.currentlyHolding().reusable ? Input.GetMouseButton : Input.GetMouseButtonDown;
-            _altFireType = inventory.currentlyHolding().reusable ? Input.GetMouseButton : Input.GetMouseButtonDown;
+            _altFireType = inventory.currentlyHolding().reusableAlt ? Input.GetMouseButton : Input.GetMouseButtonDown;
         }
+    }
+
+    public void DropHoldingItem()
+    {
+        var item = inventory.currentlyHolding();
+        if (item == null) return;
+        item.Detach();
+        inventory.RemoveItem(inventory.currentlyHolding());
     }
 }

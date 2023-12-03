@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -28,8 +27,10 @@ public class RPGLauncher : ProjectileWeapon
     
     public override void Shoot()
     {
-        Vector3 fPos = firePoint.position;
-        Quaternion fRot = firePoint.rotation;
+        StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
+        
+        Vector3 fPos = exhaustPoint.position;
+        Quaternion fRot = exhaustPoint.rotation;
         
         // Get Exhaust Particles from Pool and Play
         var exhaust = _exhaustPool.Get();
@@ -46,14 +47,6 @@ public class RPGLauncher : ProjectileWeapon
         rocket.direction = _camT.forward;
         rocket.InitProjectile();
 
-        StartCoroutine(ExplodeProjectile(rocket));
         StartCoroutine(ReleaseExhaustParticles(exhaust));
-    }
-    
-    private IEnumerator ExplodeProjectile(RPGRocket projectile)
-    {
-        yield return new WaitForSeconds(projectile.lifeTime);
-        if (!projectile.released)
-            _rockets.Release(projectile);
     }
 }
