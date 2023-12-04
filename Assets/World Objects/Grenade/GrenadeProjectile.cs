@@ -11,7 +11,9 @@ public class GrenadeProjectile : MonoBehaviour
     [SerializeField] private float fuse;
     [SerializeField] private float radius;
     [SerializeField] private float damage;
+    [SerializeField] private AudioClip explosionSFX;
 
+    private AudioSource _source;
     private Camera _cam;
     private Rigidbody _rigidbody;
     private float _fuseProgress;
@@ -21,6 +23,9 @@ public class GrenadeProjectile : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _source = GetComponent<AudioSource>();
+        _source.clip = explosionSFX;
+        _source.playOnAwake = false;
         _cam = Camera.main;
     }
 
@@ -52,6 +57,7 @@ public class GrenadeProjectile : MonoBehaviour
         Throw();
         explosion.Play();
         mesh.SetActive(false);
+        _source.Play();
         
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach (var col in colliders)

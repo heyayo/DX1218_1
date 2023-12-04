@@ -7,6 +7,7 @@ TagManager:
   - Weapon
   - Reactable
   - Mountable
+  - Interactable
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class HomingRocket : Projectile
 {
     [Header("Lock On")]
@@ -26,7 +27,8 @@ public class HomingRocket : Projectile
 
     public ObjectPool<HomingRocket> rocketPool;
     private ObjectPool<ParticleSystem> _explosions;
-    
+
+    private AudioSource _source;
     private Rigidbody _rigidbody;
     private Transform _t;
     private Quaternion _startRot;
@@ -119,6 +121,7 @@ public class HomingRocket : Projectile
                     }
                 }
         
+                PlayerEffectsManager.Instance.ShakeCam(1,5);
                 released = true;
                 rocketPool.Release(this);
                 return;
@@ -158,6 +161,7 @@ public class HomingRocket : Projectile
             }
         }
         
+        PlayerEffectsManager.Instance.ShakeCam(1,5);
         released = true;
         rocketPool.Release(this);
     }

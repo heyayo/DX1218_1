@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class PlayerEffectsManager : MonoBehaviour
@@ -28,14 +29,16 @@ public class PlayerEffectsManager : MonoBehaviour
         Instance = this;
     }
     
-    // private void Update()
-    // {
-    //     // DEBUG INPUTS
-    //     if (Input.GetKeyDown(KeyCode.Q))
-    //         StartCoroutine(ShakeCamera(2, 1));
-    //     if (Input.GetKeyDown(KeyCode.F))
-    //         StartCoroutine(SpikeRecoil(25, 2));
-    // }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ShakeCam(float time, float intensity)
+    {
+        StartCoroutine(ShakeCamera(time, intensity));
+    }
     
     public IEnumerator ShakeCamera(float shakeTime, float shakeIntensity)
     {

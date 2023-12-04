@@ -10,6 +10,7 @@ public class RPGLauncher : ProjectileWeapon
     private void Awake()
     {
         base.Awake();
+
         _rockets = new ObjectPool<RPGRocket>
             (() =>
             {

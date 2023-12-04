@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5471827568429358937}
   - component: {fileID: 1775673233369689897}
   - component: {fileID: 7908475584009144146}
+  - component: {fileID: 3099026305636812696}
   - component: {fileID: 3459683828817344274}
   - component: {fileID: 6493672109416393190}
   m_Layer: 0
@@ -84,6 +85,102 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.6406147, y: 0.65854007, z: 0.023023147}
   m_Center: {x: -1.0295438, y: -0.22722891, z: 0.0021014009}
+--- !u!82 &3099026305636812696
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808800293762053790}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3459683828817344274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +250,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6493672109416393190}
+        m_TargetAssemblyTypeName: PistolScript, Assembly-CSharp
+        m_MethodName: ReloadSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6493672109416393190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +278,7 @@ MonoBehaviour:
   ammo: {fileID: 11400000, guid: 307aec6d6a9dd204c90f45ccc21e79f0, type: 2}
   clip: 30
   clipMax: 30
-  reloadTime: 2.5
+  reloadTime: 0.8
   muzzleFlash: {fileID: 198234346748616026, guid: 0530440b9a4a88540a5d73ee89c206b7, type: 3}
   impactEffect: {fileID: 5831696098870356908, guid: 1e70f601d2165454292f475d729c70c4, type: 3}
   muzzlePoint: {fileID: 8517898840528714146}
@@ -185,6 +294,8 @@ MonoBehaviour:
   ADSVector: {x: -0.684, y: 0.02, z: -0.32}
   nonADSVector: {x: 0, y: 0, z: 0}
   adsFOV: 30
+  shootSFX: {fileID: 8300000, guid: d046b1b2edfbeec41bd80abfb344e5b3, type: 3}
+  reloadSFX: {fileID: 8300000, guid: 989a778cc5824dc4eaa7aed544bd62d6, type: 3}
 --- !u!1 &5775037881461462697
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,7 +105,7 @@ public class MovementController : MonoBehaviour
         velocity.y = 0;
         if (velocity.sqrMagnitude > 0.1)
         {
-            _headBobProgress += Time.deltaTime * headBobRate;
+            _headBobProgress += Time.deltaTime * headBobRate * _realMoveSpeed;
             _headBobCameraPosition.y = Mathf.Sin(_headBobProgress) * headBobRange;
             _camT.localPosition = _headBobCameraPosition;
         }

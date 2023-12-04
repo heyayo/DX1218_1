@@ -7,11 +7,18 @@ public class HeliScript : MonoBehaviour
     [SerializeField] private Transform rotorA;
     [SerializeField] private Transform rotorB;
     [SerializeField] private ParticleSystem explosion;
+    [SerializeField] private AudioClip explosionSFX;
 
     private Rigidbody _rigidbody;
+    private AudioSource _source;
 
     private void Awake()
-    { _rigidbody = GetComponent<Rigidbody>(); }
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _source = GetComponent<AudioSource>();
+        _source.clip = explosionSFX;
+        _source.playOnAwake = false;
+    }
     
     private void FixedUpdate()
     {
@@ -21,6 +28,7 @@ public class HeliScript : MonoBehaviour
 
     public void Destroyed()
     {
+        _source.Play();
         StartCoroutine(DestroySelf());
         transform.parent = null;
         explosion.Play();

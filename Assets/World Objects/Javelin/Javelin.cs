@@ -9,13 +9,18 @@ public class Javelin : ProjectileWeapon
     [SerializeField] private HomingRocket projectile;
     [SerializeField] private Transform firePoint;
     [SerializeField] private JavelinLocker lockingUI;
+    [SerializeField] private AudioClip fireSound;
     
     private ObjectPool<HomingRocket> _rockets;
     private bool _locking = false;
-
+    private AudioSource _source;
+    
     private void Awake()
     {
         base.Awake();
+        _source = GetComponent<AudioSource>();
+        _source.clip = fireSound;
+        
         _rockets = new ObjectPool<HomingRocket>
             (() =>
             {
@@ -43,6 +48,7 @@ public class Javelin : ProjectileWeapon
         }
         else return;
         --clip;
+        _source.Play();
         
         StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
         

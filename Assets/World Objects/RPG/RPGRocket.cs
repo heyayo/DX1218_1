@@ -86,6 +86,7 @@ public class RPGRocket : Projectile
             }
         }
         
+        PlayerEffectsManager.Instance.ShakeCam(1,5);
         released = true;
         rocketPool.Release(this);
     }

@@ -17,9 +17,13 @@ public class PistolScript : Weapon
     [SerializeField] private Vector3 nonADSVector;
     [SerializeField] private float adsFOV;
 
+    [SerializeField] private AudioClip shootSFX;
+    [SerializeField] private AudioClip reloadSFX;
+    
     private Camera _cam;
     private Transform _camT;
     private Transform _t;
+    protected AudioSource _source;
 
     private float _adsProgress;
     private float _nonADSFov;
@@ -30,7 +34,8 @@ public class PistolScript : Weapon
     private void Awake()
     {
         base.Awake();
-
+        
+        _source = GetComponent<AudioSource>();
         _cam = Camera.main;
         _camT = _cam.transform;
         _t = transform;
@@ -62,6 +67,8 @@ public class PistolScript : Weapon
     
     public override void Shoot()
     {
+        _source.clip = shootSFX;
+        _source.Play();
         --clip;
         StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
         
@@ -102,7 +109,12 @@ public class PistolScript : Weapon
     public void SniperADS()
     {
         _adsProgress += adsSpeed * 2 * Time.deltaTime;
-        
+    }
+
+    public void ReloadSFX()
+    {
+        _source.clip = reloadSFX;
+        _source.Play();
     }
 
     private void Update()

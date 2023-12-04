@@ -9,9 +9,11 @@ public class AAFire : MountableUseHook
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private ParticleSystem impactParticles;
     [SerializeField] private Transform[] flashPoints;
+    [SerializeField] private AudioClip fireSound;
     
     private ObjectPool<ParticleSystem> _flashes;
     private ObjectPool<ParticleSystem> _impacts;
+    private AudioSource _source;
     private AATurret _turret;
     private Camera _cam;
     private float _actualFireRate;
@@ -21,6 +23,10 @@ public class AAFire : MountableUseHook
     private void Awake()
     {
         _cam = Camera.main;
+        _source = GetComponent<AudioSource>();
+        _source.clip = fireSound;
+        _source.playOnAwake = false;
+        
         _flashes = new ObjectPool<ParticleSystem>
             (
             () =>
@@ -59,6 +65,7 @@ public class AAFire : MountableUseHook
         {
             if (Time.time > _lastFireTime + _actualFireRate)
             {
+                _source.Play();
                 foreach (Transform point in flashPoints)
                 {
                     var flash = _flashes.Get();

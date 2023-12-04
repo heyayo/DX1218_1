@@ -205,10 +205,11 @@ public class InventoryManager : MonoBehaviour
                     var comp = info.collider.GetComponent<Mountable>();
                     comp.Mount();
                 }
-                else if (info.collider.CompareTag("Reactable"))
+                else if (info.collider.CompareTag("Interactable"))
                 {
                     var comp = info.collider.GetComponent<Reaction>();
                     comp.onInteract.Invoke();
+                    comp.Interact(0,0);
                 }
             }
         }
@@ -217,7 +218,11 @@ public class InventoryManager : MonoBehaviour
     private void ReloadItem()
     {
         if (Input.GetKeyDown(KeyCode.R))
-            inventory.currentlyHolding().onReload.Invoke();
+        {
+            var item = inventory.currentlyHolding();
+            if (item)
+                inventory.currentlyHolding().onReload.Invoke();
+        }
     }
 
     private Item ClimbHierarchy(Transform start)

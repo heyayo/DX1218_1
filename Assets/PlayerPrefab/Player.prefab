@@ -212,7 +212,7 @@ MonoBehaviour:
   jumpTime: 0.4
   crouchSpeed: 50
   headBobRange: 0.1
-  headBobRate: 8
+  headBobRate: 1
 --- !u!114 &4655305061199593461
 MonoBehaviour:
   m_ObjectHideFlags: 0

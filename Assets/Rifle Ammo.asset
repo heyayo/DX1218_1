@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054abbfb1c3e7bc43a3e0ed507361dc3, type: 3}
   m_Name: Rifle Ammo
   m_EditorClassIdentifier: 
-  real_reserve: 35
+  real_reserve: 60
   onReserveChanged:
     m_PersistentCalls:
       m_Calls: []

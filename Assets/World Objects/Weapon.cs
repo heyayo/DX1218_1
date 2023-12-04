@@ -46,7 +46,6 @@ public abstract class Weapon : MonoBehaviour
     // Reload, no clip dump
     public void Reload()
     {
-        ammo.onReserveChanged.Invoke();
         int delta = clipMax - clip;
         if (ammo.reserve < delta)
             return;
