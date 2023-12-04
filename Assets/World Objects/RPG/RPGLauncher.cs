@@ -27,6 +27,7 @@ public class RPGLauncher : ProjectileWeapon
     
     public override void Shoot()
     {
+        --clip;
         StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
         
         Vector3 fPos = exhaustPoint.position;

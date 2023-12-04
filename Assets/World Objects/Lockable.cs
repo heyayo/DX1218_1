@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Lockable : MonoBehaviour
@@ -11,4 +12,8 @@ public class Lockable : MonoBehaviour
     { locker.allPossibleTargets.Remove(point); }
     private void OnDestroy()
     { locker.allPossibleTargets.Remove(point); }
+    private void OnBecameInvisible()
+    { locker.allPossibleTargets.Remove(point); }
+    private void OnBecameVisible()
+    { locker.allPossibleTargets.Add(point); }
 }

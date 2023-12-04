@@ -205,6 +205,11 @@ public class InventoryManager : MonoBehaviour
                     var comp = info.collider.GetComponent<Mountable>();
                     comp.Mount();
                 }
+                else if (info.collider.CompareTag("Reactable"))
+                {
+                    var comp = info.collider.GetComponent<Reaction>();
+                    comp.onInteract.Invoke();
+                }
             }
         }
     }

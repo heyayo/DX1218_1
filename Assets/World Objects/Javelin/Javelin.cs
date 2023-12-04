@@ -42,6 +42,7 @@ public class Javelin : ProjectileWeapon
                 return;
         }
         else return;
+        --clip;
         
         StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
         

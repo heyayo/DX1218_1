@@ -99,6 +99,30 @@ public class HomingRocket : Projectile
         // }
         else
         {
+            if (target == null)
+            {
+                var e = _explosions.Get();
+                e.Play();
+                Transform et = e.transform;
+                et.position = _t.position;
+                et.rotation = Quaternion.identity;
+
+                Collider[] colliders = Physics.OverlapSphere(_t.position, explosionRadius);
+                foreach (var col in colliders)
+                {
+                    if (col.CompareTag("Reactable"))
+                    {
+                        var comp = col.GetComponent<Reaction>();
+                        if (comp == null)
+                            comp = ClimbHierarchy(col.transform.parent);
+                        comp.Interact(damage,0);
+                    }
+                }
+        
+                released = true;
+                rocketPool.Release(this);
+                return;
+            }
             _state = Chasing;
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.useGravity = false;
@@ -109,7 +133,7 @@ public class HomingRocket : Projectile
     {
         // Add Force Towards Target
         direction = target.position - _t.position;
-        _rigidbody.AddForce(direction.normalized * chaseSpeed);
+        _rigidbody.velocity = direction.normalized * chaseSpeed;
         Quaternion towards = Quaternion.LookRotation(direction);
         _t.rotation = Quaternion.RotateTowards(_t.rotation,towards,chaseRotSpeed);
     }

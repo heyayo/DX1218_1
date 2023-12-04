@@ -178,6 +178,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onUseRelease:
+    m_PersistentCalls:
+      m_Calls: []
   onAltUse:
     m_PersistentCalls:
       m_Calls:
@@ -193,6 +196,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onAltRelease:
+    m_PersistentCalls:
+      m_Calls: []
   onDetach:
     m_PersistentCalls:
       m_Calls:
@@ -241,8 +247,8 @@ MonoBehaviour:
   clipMax: 1
   reloadTime: 8
   recoil:
-    vertical: 40
-    horizontal: -12
+    vertical: 2
+    horizontal: 2
     kickTime: 0.05
     waitTime: 0.2
     recoveryTime: 0.3

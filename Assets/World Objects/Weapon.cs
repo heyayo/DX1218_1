@@ -36,7 +36,6 @@ public abstract class Weapon : MonoBehaviour
         float time = Time.time;
         if (time > _timeSinceLastShot + _actualFireRate && time > _reloadTime + reloadTime && clip > 0)
         {
-            --clip;
             Shoot();
             _timeSinceLastShot = Time.time;
         }
@@ -47,13 +46,13 @@ public abstract class Weapon : MonoBehaviour
     // Reload, no clip dump
     public void Reload()
     {
+        ammo.onReserveChanged.Invoke();
         int delta = clipMax - clip;
         if (ammo.reserve < delta)
             return;
         ammo.reserve -= delta;
         clip = clipMax;
         _reloadTime = Time.time;
-        Debug.Log("RELOADING");
     }
 
     // Determined by the weapon specific

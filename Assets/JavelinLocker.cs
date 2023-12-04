@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,9 @@ public class JavelinLocker : MonoBehaviour
     [SerializeField] private float lockingSpeed;
     [SerializeField] private float lockingDelta;
 
+    private Camera _cam;
     private Transform _t;
+    private Transform _camT;
     private Transform _closestTarget;
     private bool _enabled;
 
@@ -20,14 +23,17 @@ public class JavelinLocker : MonoBehaviour
 
     private void Awake()
     {
+        _cam = Camera.main;
         _t = transform;
+        _camT = _cam.transform;
         self = GetComponent<MeshRenderer>();
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        _t.rotation = Quaternion.LookRotation(-(player.position.normalized)) * Quaternion.Euler(-90,0,0);
+        _t.LookAt(_camT.position);
+        _t.rotation *= Quaternion.Euler(90,0,0);
         
         if (_closestTarget == null) return;
 
@@ -49,15 +55,30 @@ public class JavelinLocker : MonoBehaviour
     {
         if (allPossibleTargets.Count <= 0) return;
         Transform closest = allPossibleTargets[0];
-        Vector3 lastDiff = closest.position - player.position;
+        float closestDist = Single.MaxValue;
+
         foreach (var target in allPossibleTargets)
         {
-            Vector3 diff = target.position - player.position;
-            if (lastDiff.magnitude > diff.magnitude)
+            var distToCenter = GetDistToCenter(target.position);
+            if (distToCenter.magnitude < closestDist)
+            {
                 closest = target;
+                closestDist = distToCenter.magnitude;
+            }
         }
 
         _closestTarget = closest;
+    }
+
+    private Vector3 GetDistToCenter(Vector3 pos)
+    {
+        Vector3 vpos = _cam.WorldToViewportPoint(pos);
+        return new Vector3
+            (
+            Mathf.Abs(vpos.x - 0.5f),
+            Mathf.Abs(vpos.y - 0.5f),
+            0
+            );
     }
 
     public void EnableLocker(bool enable)
@@ -65,7 +86,7 @@ public class JavelinLocker : MonoBehaviour
         _enabled = enable;
         self.material = lockingOn;
         if (enable)
-            InvokeRepeating("FindClosestTarget",0,2);
+            InvokeRepeating("FindClosestTarget",0,1);
         else
             CancelInvoke("FindClosestTarget");
     }

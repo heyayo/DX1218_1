@@ -17,9 +17,6 @@ public class Destructable : Reaction
 	{
 		health -= damage;
 		if (health <= 0)
-		{
-			Destroy(rootObject);
 			onDestroyed.Invoke();
-		}
 	}
 }

@@ -62,6 +62,7 @@ public class PistolScript : Weapon
     
     public override void Shoot()
     {
+        --clip;
         StartCoroutine(PlayerEffectsManager.Instance.SpikeRecoil(recoil));
         
         // Spawn Muzzle Flash and Hide After 2 Seconds
@@ -96,6 +97,12 @@ public class PistolScript : Weapon
     public void ADS()
     {
         _adsProgress += adsSpeed * 2 * Time.deltaTime;
+    }
+
+    public void SniperADS()
+    {
+        _adsProgress += adsSpeed * 2 * Time.deltaTime;
+        
     }
 
     private void Update()

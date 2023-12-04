@@ -180,10 +180,11 @@ MonoBehaviour:
     kickTime: 0.1
     waitTime: 0.2
     recoveryTime: 0.25
-  damage: 1
+  damage: 4
   adsSpeed: 2.5
   ADSVector: {x: -0.684, y: 0.02, z: -0.32}
   nonADSVector: {x: 0, y: 0, z: 0}
+  adsFOV: 30
 --- !u!1 &5775037881461462697
 GameObject:
   m_ObjectHideFlags: 0
